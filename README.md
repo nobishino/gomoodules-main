@@ -68,3 +68,23 @@ github.com/nobishino/gomodules-b v1.2.0
 github.com/nobishino/gomodules-c v1.4.0
 github.com/nobishino/gomodules-d v1.2.0
 ```
+
+ここで`go mod tidy`してから`go list -m all`すると、
+
+```
+github.com/nobishino/gomoodules-main
+github.com/nobishino/gomodules-a v1.2.0
+github.com/nobishino/gomodules-c v1.4.0
+github.com/nobishino/gomodules-d v1.2.0
+```
+
+となります。つまりcのバージョンは`go get github.com/nobishino/gomodules-b@v1.2.0`を実行してアップグレードされたままになっています。
+しかし`gomodules-b`はまだソースコードから実際に使われてないので`require`から消えました。
+
+
+再び`go get github.com/nobishino/gomodules-b@v1.2.0`を実行して、実際にbのソースを使うために次の行を追加しておきます。
+
+```go
+	_ = b.B{}
+```
+
