@@ -35,5 +35,36 @@ func init() {
 `go mod tidy`を実行してから`go list -m all`を実行します。
 
 ```
+github.com/nobishino/gomoodules-main
+github.com/nobishino/gomodules-a v1.2.0
+github.com/nobishino/gomodules-c v1.3.0
+github.com/nobishino/gomodules-d v1.2.0
+```
+
+結果は`go get`した直後と変わっていません。
+
+### `gomodules-b@v1.2.0`にも依存させる
+
+```
 go get github.com/nobishino/gomodules-b@v1.2.0
+```
+
+を実行すると次のようなログが流れます。
+
+```
+go: downloading github.com/nobishino/gomodules-b v1.2.0
+go: added github.com/nobishino/gomodules-b v1.2.0
+go: upgraded github.com/nobishino/gomodules-c v1.3.0 => v1.4.0
+```
+
+3行目を見るとgomodules-cのバージョンがupgradeされています。
+
+`go list -m all`の結果は次のようになります。
+
+```
+github.com/nobishino/gomoodules-main
+github.com/nobishino/gomodules-a v1.2.0
+github.com/nobishino/gomodules-b v1.2.0
+github.com/nobishino/gomodules-c v1.4.0
+github.com/nobishino/gomodules-d v1.2.0
 ```
